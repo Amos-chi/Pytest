@@ -1,33 +1,21 @@
 # Time : 2023/2/2 13:33
 import pytest
-import requests
-
-from common.yaml_util import read_yaml
-
-
-class TestIPGAPI:
-
-    proxies = {
+from common.requests_util import RequestUtil
+from common.yaml_util import read_yaml, read_yamlfile
+proxies = {
         'http': 'http://127.0.0.1:4780',
         'https': 'http://127.0.0.1:4780'
     }
 
-    Authorization = ''
-
-    def test_get_token(self,get_Authorization):
-        TestIPGAPI.Authorization = get_Authorization
+class TestIPGAPI:
 
 
-    @pytest.mark.parametrize('userinfo',read_yaml('testcases/ipg_api/data.yml'))
+    @pytest.mark.parametrize('userinfo',read_yamlfile('/testcases/ipg_api/data.yml'))
     def test_ipg_api(self,userinfo):
         print(userinfo['name'])
         url = userinfo['url']
         json = userinfo['data']
-        headers = { 'Authorization': TestIPGAPI.Authorization}
-
-        resp = requests.post(url,json=json,headers=headers,proxies=TestIPGAPI.proxies)
+        headers = { 'Authorization': read_yaml('Authorization')}
+        resp = RequestUtil().send_requests(method='post',url=url,json=json,headers=headers,proxies=proxies)
 
         assert resp.status_code == 200
-
-
-

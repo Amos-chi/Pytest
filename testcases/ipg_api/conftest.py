@@ -1,8 +1,6 @@
 # Time : 2023/2/2 10:02
 import pytest
-import requests
-
-from common.requests_util import RequestUtil
+from common.yaml_util import clean_yaml
 
 proxies = {
     'http': 'http://127.0.0.1:4780',
@@ -10,18 +8,12 @@ proxies = {
 }
 
 @pytest.fixture(scope='function')
-def get_Authorization():
-    url= 'https://api-staging.hitalentech.com:8888/user/api/v3/login'
-    data = {
-        'username' : 'amos.chi',
-        'password' : 'ipg@95054'
-
-    }
-    resp = RequestUtil.session.request('post',url=url, json=data, proxies=proxies)
-    token = resp.json()['credential']['access_token']
-    Authorization = 'Bearer ' + token
-    print('运行了get_Authorization---------------------------------------------')
-    return Authorization
+def sco_session1():
+    print('sco_session ++++++++++++++++++++++++++++')
+    clean_yaml()
+    yield
+    pass
+    print('用例测试结束')
 
 if __name__ == '__main__':
-    get_Authorization()
+    sco_session1()
