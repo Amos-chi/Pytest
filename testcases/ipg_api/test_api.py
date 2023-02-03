@@ -10,7 +10,7 @@ proxies = {
 class TestIPGAPI:
 
 
-    @pytest.mark.parametrize('userinfo',read_yamlfile('/testcases/ipg_api/data.yml'))
+    @pytest.mark.parametrize('userinfo',read_yamlfile('/testcases/ipg_api/cases_parameter.yml'))
     def test_ipg_api(self,userinfo):
         print(userinfo['name'])
         url = userinfo['url']
