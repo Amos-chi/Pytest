@@ -10,7 +10,6 @@ proxies = {
 @pytest.fixture(scope='function')
 def sco_session1():
     print('sco_session ++++++++++++++++++++++++++++')
-    clean_yaml()
     yield
     pass
     print('用例测试结束')

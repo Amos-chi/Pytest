@@ -14,7 +14,7 @@ class GetAuthorization:
         url= 'https://api-staging.hitalentech.com:8888/user/api/v3/login'
         data = {
             'username' : 'amos.chi',
-            'password' : 'ipg@95054'
+            'password' : 'a123456'
         }
         resp = requests.post(url=url, json=data, proxies=GetAuthorization.proxies)
         token = resp.json()['credential']['access_token']

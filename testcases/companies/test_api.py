@@ -2,6 +2,7 @@
 import pytest
 from common.requests_util import RequestUtil
 from common.yaml_util import read_yaml, read_yamlfile
+
 proxies = {
         'http': 'http://127.0.0.1:4780',
         'https': 'http://127.0.0.1:4780'
@@ -10,11 +11,11 @@ proxies = {
 class TestIPGAPI:
 
 
-    @pytest.mark.parametrize('userinfo',read_yamlfile('/testcases/ipg_api/cases_parameter.yml'))
-    def test_ipg_api(self,userinfo):
-        print(userinfo['name'])
-        url = userinfo['url']
-        json = userinfo['data']
+    @pytest.mark.parametrize('parameter',read_yamlfile('/testcases/companies/cases_parameter.yml'))
+    def test_ipg_api(self,parameter):
+        print(parameter['name'])
+        url = parameter['url']
+        json = parameter['data']
         headers = { 'Authorization': read_yaml('Authorization')}
         resp = RequestUtil().send_requests(method='post',url=url,json=json,headers=headers,proxies=proxies)
 
